@@ -1,8 +1,8 @@
 package com.williams.identityverification.advice;
 
 import com.williams.identityverification.exception.ConflictException;
+import com.williams.identityverification.exception.IllegalArgumentException;
 import com.williams.identityverification.exception.NotFoundException;
-import org.aspectj.weaver.ast.Not;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -38,6 +38,15 @@ public class ApplicationExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(NotFoundException.class)
     public Map<String,String> handlerConflict(NotFoundException ex){
+        Map<String,String> errorMap= new HashMap<>();
+        errorMap.put("message",ex.getMessage());
+        errorMap.put("code", ex.getCode());
+        return errorMap;
+    }
+
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(IllegalArgumentException.class)
+    public Map<String,String> handlerConflict(IllegalArgumentException ex){
         Map<String,String> errorMap= new HashMap<>();
         errorMap.put("message",ex.getMessage());
         errorMap.put("code", ex.getCode());

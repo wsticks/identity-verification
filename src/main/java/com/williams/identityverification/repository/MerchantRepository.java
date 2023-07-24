@@ -7,5 +7,5 @@ public interface MerchantRepository extends JpaRepository<Merchant,String> {
 
     Merchant findMerchantByEmail(String email);
 
-    Merchant findMerchantByMerchantSerial(String serial);
+    Merchant findMerchantByMerchantId(String serial);
 }

@@ -3,10 +3,8 @@ package com.williams.identityverification.service;
 import com.williams.identityverification.exception.ConflictException;
 import com.williams.identityverification.exception.NotFoundException;
 import com.williams.identityverification.model.model.Merchant;
-import com.williams.identityverification.model.model.Product;
 import com.williams.identityverification.model.request.MerchantRequest;
 import com.williams.identityverification.model.response.MerchantResponse;
-import com.williams.identityverification.model.response.ProductResponse;
 import com.williams.identityverification.repository.MerchantRepository;
 import com.williams.identityverification.service.base.MerchantService;
 import com.williams.identityverification.util.CustomResponseCode;
@@ -38,14 +36,12 @@ public class MerchantServiceImpl implements MerchantService {
         return mapper.map(merchant, MerchantResponse.class);
     }
 
-
     public MerchantResponse getMerchantBySerialNumber(String serialNo){
-        Merchant savedMerchant = repository.findMerchantByMerchantSerial(serialNo);
+        Merchant savedMerchant = repository.findMerchantByMerchantId(serialNo);
         if (savedMerchant == null){
             throw new NotFoundException(CustomResponseCode.NOT_FOUND_EXCEPTION, " Merchant does not exist");
         }
-        MerchantResponse response = mapper.map(savedMerchant,MerchantResponse.class);
-        return response;
+        return mapper.map(savedMerchant,MerchantResponse.class);
     }
 
     private void generateProductSerialNumber(Merchant request) {

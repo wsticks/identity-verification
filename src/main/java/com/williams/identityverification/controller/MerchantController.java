@@ -25,7 +25,7 @@ public class MerchantController {
     }
 
     @GetMapping("/{serialNo}")
-    public ResponseEntity<MerchantResponse> getMerchant(@PathVariable String serialNo){
+    public ResponseEntity<MerchantResponse> getMerchant(@PathVariable @Valid String serialNo){
         MerchantResponse response = service.getMerchantBySerialNumber(serialNo);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
